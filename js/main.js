@@ -13,16 +13,16 @@
 
 // Wait for DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-    // Initialize all components
-    initMobileNavigation();
-    initScrollAnimations();
-    initPodcastPlayer();
-    initShareDialog();
-    initBackToTop();
-    initAccessibility();
-    initIntersectionAnimations();
-    initParallaxEffects();
-    initActiveNavHighlighting(); // Added active nav highlighting
+  // Initialize all components
+  initMobileNavigation();
+  initScrollAnimations();
+  initPodcastPlayer();
+  initShareDialog();
+  initBackToTop();
+  initAccessibility();
+  initIntersectionAnimations();
+  initParallaxEffects();
+  initActiveNavHighlighting(); // Added active nav highlighting
 });
 
 /**
@@ -30,16 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
  * This provides a central place to manage all service-related identifiers
  */
 const podcastConfig = {
-    spotify: {
-        showId: "ParaPowerMapping", // Update with actual Spotify show ID
-        baseUrl: "https://open.spotify.com",
-        embedBaseUrl: "https://open.spotify.com/embed-podcast/show",
-    },
-    apple: {
-        podcastId: "1674362158",
-        embedBaseUrl: "https://embed.podcasts.apple.com/us/podcast",
-    },
-    defaultProvider: "apple", // Changed from 'spotify' to 'apple'
+  spotify: {
+    showId: "ParaPowerMapping", // Update with actual Spotify show ID
+    baseUrl: "https://open.spotify.com",
+    embedBaseUrl: "https://open.spotify.com/embed-podcast/show",
+  },
+  apple: {
+    podcastId: "1674362158",
+    embedBaseUrl: "https://embed.podcasts.apple.com/us/podcast",
+  },
+  defaultProvider: "apple", // Changed from 'spotify' to 'apple'
 };
 
 /**
@@ -47,153 +47,153 @@ const podcastConfig = {
  * Toggles mobile menu and handles navigation events
  */
 function initMobileNavigation() {
-    const menuToggle = document.querySelector(".nav__toggle");
-    const menu = document.querySelector(".nav__list");
-    const body = document.body;
+  const menuToggle = document.querySelector(".nav__toggle");
+  const menu = document.querySelector(".nav__list");
+  const body = document.body;
 
-    if (!menuToggle || !menu) return;
+  if (!menuToggle || !menu) return;
 
-    // Toggle menu visibility
-    menuToggle.addEventListener("click", () => {
-        const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+  // Toggle menu visibility
+  menuToggle.addEventListener("click", () => {
+    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
 
-        menuToggle.setAttribute("aria-expanded", !isExpanded);
-        body.classList.toggle("menu-open");
+    menuToggle.setAttribute("aria-expanded", !isExpanded);
+    body.classList.toggle("menu-open");
 
-        // If on mobile, display the menu properly
-        if (window.innerWidth < 600) {
-            menu.style.display = isExpanded ? "none" : "flex";
-            menu.style.position = isExpanded ? "static" : "fixed";
-            menu.style.top = isExpanded ? "auto" : "4rem";
-            menu.style.left = isExpanded ? "auto" : "0";
-            menu.style.width = isExpanded ? "auto" : "100%";
-            menu.style.backgroundColor = isExpanded
-                ? "transparent"
-                : "rgba(26, 26, 26, 0.95)";
-            menu.style.padding = isExpanded ? "0" : "2rem";
-            menu.style.flexDirection = isExpanded ? "row" : "column";
-            menu.style.alignItems = isExpanded ? "center" : "flex-start";
-            menu.style.zIndex = isExpanded ? "auto" : "var(--z-header)";
-            menu.style.boxShadow = isExpanded
-                ? "none"
-                : "0 5px 15px rgba(0, 0, 0, 0.3)";
-        }
+    // If on mobile, display the menu properly
+    if (window.innerWidth < 600) {
+      menu.style.display = isExpanded ? "none" : "flex";
+      menu.style.position = isExpanded ? "static" : "fixed";
+      menu.style.top = isExpanded ? "auto" : "4rem";
+      menu.style.left = isExpanded ? "auto" : "0";
+      menu.style.width = isExpanded ? "auto" : "100%";
+      menu.style.backgroundColor = isExpanded
+        ? "transparent"
+        : "rgba(26, 26, 26, 0.95)";
+      menu.style.padding = isExpanded ? "0" : "2rem";
+      menu.style.flexDirection = isExpanded ? "row" : "column";
+      menu.style.alignItems = isExpanded ? "center" : "flex-start";
+      menu.style.zIndex = isExpanded ? "auto" : "var(--z-header)";
+      menu.style.boxShadow = isExpanded
+        ? "none"
+        : "0 5px 15px rgba(0, 0, 0, 0.3)";
+    }
+  });
+
+  // Close menu when clicking nav links
+  const navLinks = menu.querySelectorAll(".nav__link");
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      // Update active state immediately on click for responsiveness
+      navLinks.forEach((l) => {
+        l.classList.remove("active");
+        l.removeAttribute("aria-current");
+      });
+      link.classList.add("active");
+      link.setAttribute("aria-current", "page");
+
+      if (window.innerWidth < 769) {
+        // Use 769px breakpoint consistent with CSS
+        menuToggle.setAttribute("aria-expanded", "false");
+        body.classList.remove("menu-open");
+        // Reset mobile menu styles (handled by CSS now)
+        menu.style.display = "";
+        menu.style.position = "";
+        menu.style.top = "";
+        menu.style.left = "";
+        menu.style.width = "";
+        menu.style.backgroundColor = "";
+        menu.style.padding = "";
+        menu.style.flexDirection = "";
+        menu.style.alignItems = "";
+        menu.style.zIndex = "";
+        menu.style.boxShadow = "";
+      }
     });
+  });
 
-    // Close menu when clicking nav links
-    const navLinks = menu.querySelectorAll(".nav__link");
-    navLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-            // Update active state immediately on click for responsiveness
-            navLinks.forEach((l) => {
-                l.classList.remove("active");
-                l.removeAttribute("aria-current");
-            });
-            link.classList.add("active");
-            link.setAttribute("aria-current", "page");
-
-            if (window.innerWidth < 769) {
-                // Use 769px breakpoint consistent with CSS
-                menuToggle.setAttribute("aria-expanded", "false");
-                body.classList.remove("menu-open");
-                // Reset mobile menu styles (handled by CSS now)
-                menu.style.display = "";
-                menu.style.position = "";
-                menu.style.top = "";
-                menu.style.left = "";
-                menu.style.width = "";
-                menu.style.backgroundColor = "";
-                menu.style.padding = "";
-                menu.style.flexDirection = "";
-                menu.style.alignItems = "";
-                menu.style.zIndex = "";
-                menu.style.boxShadow = "";
-            }
-        });
-    });
-
-    // Handle resize events to fix menu state
-    window.addEventListener(
-        "resize",
-        debounce(() => {
-            if (window.innerWidth >= 769) {
-                // Use 769px breakpoint
-                // Reset styles potentially added by JS for mobile
-                menu.style.display = "";
-                menu.style.position = "";
-                menu.style.top = "";
-                menu.style.left = "";
-                menu.style.width = "";
-                menu.style.backgroundColor = "";
-                menu.style.padding = "";
-                menu.style.flexDirection = "";
-                menu.style.boxShadow = "";
-                body.classList.remove("menu-open");
-                menuToggle.setAttribute("aria-expanded", "false");
-            } else if (!body.classList.contains("menu-open")) {
-                // Ensure menu is hidden if not open on mobile
-                menu.style.display = "none";
-            }
-        }, 150)
-    );
+  // Handle resize events to fix menu state
+  window.addEventListener(
+    "resize",
+    debounce(() => {
+      if (window.innerWidth >= 769) {
+        // Use 769px breakpoint
+        // Reset styles potentially added by JS for mobile
+        menu.style.display = "";
+        menu.style.position = "";
+        menu.style.top = "";
+        menu.style.left = "";
+        menu.style.width = "";
+        menu.style.backgroundColor = "";
+        menu.style.padding = "";
+        menu.style.flexDirection = "";
+        menu.style.boxShadow = "";
+        body.classList.remove("menu-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      } else if (!body.classList.contains("menu-open")) {
+        // Ensure menu is hidden if not open on mobile
+        menu.style.display = "none";
+      }
+    }, 150)
+  );
 }
 
 /**
  * Highlight Active Navigation Link based on Scroll Position
  */
 function initActiveNavHighlighting() {
-    const sections = document.querySelectorAll("main > section[id]");
-    const navLinks = document.querySelectorAll(".nav__link");
+  const sections = document.querySelectorAll("main > section[id]");
+  const navLinks = document.querySelectorAll(".nav__link");
 
-    if (!sections.length || !navLinks.length) return;
+  if (!sections.length || !navLinks.length) return;
 
-    const observerOptions = {
-        root: null, // relative to document viewport
-        rootMargin: "-40% 0px -60% 0px", // Trigger when section is roughly centered
-        threshold: 0, // Trigger as soon as any part enters/leaves the margin
-    };
+  const observerOptions = {
+    root: null, // relative to document viewport
+    rootMargin: "-40% 0px -60% 0px", // Trigger when section is roughly centered
+    threshold: 0, // Trigger as soon as any part enters/leaves the margin
+  };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute("id");
-                navLinks.forEach((link) => {
-                    link.classList.remove("active");
-                    link.removeAttribute("aria-current");
-                    if (link.getAttribute("href") === `#${id}`) {
-                        link.classList.add("active");
-                        link.setAttribute("aria-current", "page");
-                    }
-                });
-            }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute("id");
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          link.removeAttribute("aria-current");
+          if (link.getAttribute("href") === `#${id}`) {
+            link.classList.add("active");
+            link.setAttribute("aria-current", "page");
+          }
         });
-    }, observerOptions);
-
-    sections.forEach((section) => {
-        observer.observe(section);
+      }
     });
+  }, observerOptions);
 
-    // Special case for home link when at the very top
-    const homeObserver = new IntersectionObserver(
-        (entries) => {
-            if (entries[0].isIntersecting) {
-                navLinks.forEach((link) => {
-                    link.classList.remove("active");
-                    link.removeAttribute("aria-current");
-                    if (link.getAttribute("href") === "#home") {
-                        link.classList.add("active");
-                        link.setAttribute("aria-current", "page");
-                    }
-                });
-            }
-        },
-        { threshold: 0.5, rootMargin: "0px 0px -90% 0px" }
-    ); // Observe top 10% of viewport
+  sections.forEach((section) => {
+    observer.observe(section);
+  });
 
-    const header = document.querySelector("#header");
-    if (header) {
-        homeObserver.observe(header);
-    }
+  // Special case for home link when at the very top
+  const homeObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          link.removeAttribute("aria-current");
+          if (link.getAttribute("href") === "#home") {
+            link.classList.add("active");
+            link.setAttribute("aria-current", "page");
+          }
+        });
+      }
+    },
+    { threshold: 0.5, rootMargin: "0px 0px -90% 0px" }
+  ); // Observe top 10% of viewport
+
+  const header = document.querySelector("#header");
+  if (header) {
+    homeObserver.observe(header);
+  }
 }
 
 /**
@@ -201,11 +201,11 @@ function initActiveNavHighlighting() {
  * Creates a dynamic podcast player that can switch between Spotify and Apple Podcasts
  */
 function initPodcastPlayer() {
-    const playerContainer = document.getElementById("podcast-player");
-    if (!playerContainer) return;
+  const playerContainer = document.getElementById("podcast-player");
+  if (!playerContainer) return;
 
-    // Create player structure
-    playerContainer.innerHTML = `
+  // Create player structure
+  playerContainer.innerHTML = `
         <div class="podcast-player__container">
             <div class="podcast-player__tabs">
                 <button class="podcast-player__tab active" data-provider="apple">
@@ -223,25 +223,25 @@ function initPodcastPlayer() {
         </div>
     `;
 
-    // Get elements
-    const tabs = playerContainer.querySelectorAll(".podcast-player__tab");
-    const embedContainer = document.getElementById("podcast-embed");
+  // Get elements
+  const tabs = playerContainer.querySelectorAll(".podcast-player__tab");
+  const embedContainer = document.getElementById("podcast-embed");
 
-    // Load the default provider
-    loadPodcastEmbed(podcastConfig.defaultProvider, embedContainer);
+  // Load the default provider
+  loadPodcastEmbed(podcastConfig.defaultProvider, embedContainer);
 
-    // Add tab click handlers
-    tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-            // Update active tab
-            tabs.forEach((t) => t.classList.remove("active"));
-            tab.classList.add("active");
+  // Add tab click handlers
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      // Update active tab
+      tabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
 
-            // Load selected provider
-            const provider = tab.dataset.provider;
-            loadPodcastEmbed(provider, embedContainer);
-        });
+      // Load selected provider
+      const provider = tab.dataset.provider;
+      loadPodcastEmbed(provider, embedContainer);
     });
+  });
 }
 
 /**
@@ -250,16 +250,16 @@ function initPodcastPlayer() {
  * @param {HTMLElement} container - The container to load the embed into
  */
 function loadPodcastEmbed(provider, container) {
-    if (!container) return;
+  if (!container) return;
 
-    // Show loading spinner
-    container.innerHTML = `<div class="loading-spinner"><span class="visually-hidden">Loading podcast player...</span></div>`;
+  // Show loading spinner
+  container.innerHTML = `<div class="loading-spinner"><span class="visually-hidden">Loading podcast player...</span></div>`;
 
-    // Create appropriate embed based on provider
-    let embedHtml = "";
+  // Create appropriate embed based on provider
+  let embedHtml = "";
 
-    if (provider === "spotify") {
-        embedHtml = `
+  if (provider === "spotify") {
+    embedHtml = `
             <iframe style="border-radius:12px" 
                 src="https://open.spotify.com/embed/show/6fw1VCpTK9W4K56N1kyR6O?utm_source=generator&theme=0" 
                 width="100%" 
@@ -270,8 +270,8 @@ function loadPodcastEmbed(provider, container) {
                 loading="lazy">
             </iframe>
         `;
-    } else if (provider === "apple") {
-        embedHtml = `
+  } else if (provider === "apple") {
+    embedHtml = `
             <iframe 
                 height="450" 
                 width="100%" 
@@ -283,16 +283,16 @@ function loadPodcastEmbed(provider, container) {
                 allow="autoplay; encrypted-media; clipboard-write">
             </iframe>
         `;
-    }
+  }
 
-    // Insert embed HTML
-    container.innerHTML = embedHtml;
+  // Insert embed HTML
+  container.innerHTML = embedHtml;
 
-    // Handle errors
-    const iframe = container.querySelector("iframe");
-    if (iframe) {
-        iframe.onerror = () => {
-            container.innerHTML = `
+  // Handle errors
+  const iframe = container.querySelector("iframe");
+  if (iframe) {
+    iframe.onerror = () => {
+      container.innerHTML = `
                 <div class="error-message">
                     <p>Unable to load podcast player from ${provider}.</p>
                     <p>Please try another provider or visit directly:</p>
@@ -308,8 +308,8 @@ function loadPodcastEmbed(provider, container) {
                     </div>
                 </div>
             `;
-        };
-    }
+    };
+  }
 }
 
 /**
@@ -317,31 +317,31 @@ function loadPodcastEmbed(provider, container) {
  * Detects when elements enter viewport and triggers animations
  */
 function initScrollAnimations() {
-    const animatedElements = document.querySelectorAll(".animate-on-scroll");
+  const animatedElements = document.querySelectorAll(".animate-on-scroll");
 
-    if (animatedElements.length === 0) return;
+  if (animatedElements.length === 0) return;
 
-    // Use Intersection Observer for better performance
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("active");
-                    // Once animated, no need to observe anymore
-                    observer.unobserve(entry.target);
-                }
-            });
-        },
-        {
-            rootMargin: "0px",
-            threshold: 0.15, // Element is 15% visible
+  // Use Intersection Observer for better performance
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          // Once animated, no need to observe anymore
+          observer.unobserve(entry.target);
         }
-    );
+      });
+    },
+    {
+      rootMargin: "0px",
+      threshold: 0.15, // Element is 15% visible
+    }
+  );
 
-    // Observe all animated elements
-    animatedElements.forEach((el) => {
-        observer.observe(el);
-    });
+  // Observe all animated elements
+  animatedElements.forEach((el) => {
+    observer.observe(el);
+  });
 }
 
 /**
@@ -349,50 +349,50 @@ function initScrollAnimations() {
  * Advanced animations triggered by scroll position
  */
 function initIntersectionAnimations() {
-    const staggeredElements = document.querySelectorAll("[data-stagger]");
-    const revealElements = document.querySelectorAll("[data-reveal]");
+  const staggeredElements = document.querySelectorAll("[data-stagger]");
+  const revealElements = document.querySelectorAll("[data-reveal]");
 
-    // Handle staggered animations
-    const staggerObserver = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    // Add staggered delay based on index
-                    setTimeout(() => {
-                        entry.target.classList.add("revealed");
-                    }, index * 100); // 100ms stagger
-                    staggerObserver.unobserve(entry.target);
-                }
-            });
-        },
-        {
-            threshold: 0.1,
+  // Handle staggered animations
+  const staggerObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          // Add staggered delay based on index
+          setTimeout(() => {
+            entry.target.classList.add("revealed");
+          }, index * 100); // 100ms stagger
+          staggerObserver.unobserve(entry.target);
         }
-    );
+      });
+    },
+    {
+      threshold: 0.1,
+    }
+  );
 
-    staggeredElements.forEach((el) => {
-        staggerObserver.observe(el);
-    });
+  staggeredElements.forEach((el) => {
+    staggerObserver.observe(el);
+  });
 
-    // Handle reveal animations
-    const revealObserver = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const direction = entry.target.dataset.reveal || "up";
-                    entry.target.classList.add(`reveal-${direction}`);
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        },
-        {
-            threshold: 0.1,
+  // Handle reveal animations
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const direction = entry.target.dataset.reveal || "up";
+          entry.target.classList.add(`reveal-${direction}`);
+          revealObserver.unobserve(entry.target);
         }
-    );
+      });
+    },
+    {
+      threshold: 0.1,
+    }
+  );
 
-    revealElements.forEach((el) => {
-        revealObserver.observe(el);
-    });
+  revealElements.forEach((el) => {
+    revealObserver.observe(el);
+  });
 }
 
 /**
@@ -400,49 +400,49 @@ function initIntersectionAnimations() {
  * Creates smooth parallax scrolling effects
  */
 function initParallaxEffects() {
-    const parallaxElements = document.querySelectorAll(".parallax");
-    const aboutBackground = document.querySelector(".about-background");
+  const parallaxElements = document.querySelectorAll(".parallax");
+  const aboutBackground = document.querySelector(".about-background");
 
-    if (aboutBackground && "IntersectionObserver" in window) {
-        // Add parallax effect to about section background
-        const parallaxObserver = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        // Enable animation when visible
-                        aboutBackground.style.animation =
-                            "slow-drift 20s ease-in-out infinite alternate";
-                    } else {
-                        // Disable animation when not visible (performance optimization)
-                        aboutBackground.style.animation = "none";
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
+  if (aboutBackground && "IntersectionObserver" in window) {
+    // Add parallax effect to about section background
+    const parallaxObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Enable animation when visible
+            aboutBackground.style.animation =
+              "slow-drift 20s ease-in-out infinite alternate";
+          } else {
+            // Disable animation when not visible (performance optimization)
+            aboutBackground.style.animation = "none";
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-        parallaxObserver.observe(aboutBackground.parentNode);
-    }
+    parallaxObserver.observe(aboutBackground.parentNode);
+  }
 
-    if (parallaxElements.length === 0) return;
+  if (parallaxElements.length === 0) return;
 
-    // Only apply parallax effect if device likely supports it well
-    const supportsParallax = !isMobileDevice();
+  // Only apply parallax effect if device likely supports it well
+  const supportsParallax = !isMobileDevice();
 
-    if (supportsParallax) {
-        window.addEventListener(
-            "scroll",
-            throttle(() => {
-                const scrollY = window.scrollY;
+  if (supportsParallax) {
+    window.addEventListener(
+      "scroll",
+      throttle(() => {
+        const scrollY = window.scrollY;
 
-                parallaxElements.forEach((el) => {
-                    const speed = el.dataset.speed || 0.3;
-                    const yPos = -(scrollY * speed);
-                    el.style.transform = `translate3d(0, ${yPos}px, 0)`;
-                });
-            }, 16)
-        ); // ~60fps
-    }
+        parallaxElements.forEach((el) => {
+          const speed = el.dataset.speed || 0.3;
+          const yPos = -(scrollY * speed);
+          el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        });
+      }, 16)
+    ); // ~60fps
+  }
 }
 
 /**
@@ -450,94 +450,94 @@ function initParallaxEffects() {
  * Handles the share dialog for sharing episodes
  */
 function initShareDialog() {
-    const shareDialog = document.getElementById("share-dialog");
-    if (!shareDialog) return;
+  const shareDialog = document.getElementById("share-dialog");
+  if (!shareDialog) return;
 
-    // Close dialog when clicking the close button
-    const closeButton = shareDialog.querySelector(".dialog__close");
-    if (closeButton) {
-        closeButton.addEventListener("click", () => {
-            shareDialog.close();
-        });
+  // Close dialog when clicking the close button
+  const closeButton = shareDialog.querySelector(".dialog__close");
+  if (closeButton) {
+    closeButton.addEventListener("click", () => {
+      shareDialog.close();
+    });
+  }
+
+  // Close dialog when clicking outside
+  shareDialog.addEventListener("click", (e) => {
+    if (e.target === shareDialog) {
+      shareDialog.close();
     }
+  });
 
-    // Close dialog when clicking outside
-    shareDialog.addEventListener("click", (e) => {
-        if (e.target === shareDialog) {
-            shareDialog.close();
-        }
-    });
-
-    // Handle ESC key
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && shareDialog.open) {
-            shareDialog.close();
-        }
-    });
-
-    // Copy link functionality
-    const copyLinkButton = document.getElementById("copy-link");
-    if (copyLinkButton) {
-        copyLinkButton.addEventListener("click", () => {
-            const link =
-                copyLinkButton.getAttribute("data-link") || window.location.href;
-
-            // Copy to clipboard
-            navigator.clipboard
-                .writeText(link)
-                .then(() => {
-                    const confirmation = document.getElementById("copy-confirmation");
-                    if (confirmation) {
-                        confirmation.classList.remove("hidden");
-                        setTimeout(() => {
-                            confirmation.classList.add("hidden");
-                        }, 2000);
-                    }
-                })
-                .catch((err) => {
-                    console.error("Could not copy text: ", err);
-                });
-        });
+  // Handle ESC key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && shareDialog.open) {
+      shareDialog.close();
     }
+  });
 
-    // Configure share options
-    const shareOptions = shareDialog.querySelectorAll(
-        ".share-option[data-platform]"
-    );
-    shareOptions.forEach((option) => {
-        option.addEventListener("click", () => {
-            const platform = option.getAttribute("data-platform");
+  // Copy link functionality
+  const copyLinkButton = document.getElementById("copy-link");
+  if (copyLinkButton) {
+    copyLinkButton.addEventListener("click", () => {
+      const link =
+        copyLinkButton.getAttribute("data-link") || window.location.href;
 
-            if (platform !== "copy") {
-                const url = shareDialog.dataset.shareUrl || window.location.href;
-                const title = "Check out this episode of ParaPowerMapping!";
-
-                switch (platform) {
-                    case "twitter":
-                        window.open(
-                            `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                                title
-                            )}&url=${encodeURIComponent(url)}`,
-                            "_blank"
-                        );
-                        break;
-                    case "facebook":
-                        window.open(
-                            `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                                url
-                            )}`,
-                            "_blank"
-                        );
-                        break;
-                    case "email":
-                        window.location.href = `mailto:?subject=${encodeURIComponent(
-                            title
-                        )}&body=${encodeURIComponent(url)}`;
-                        break;
-                }
-            }
+      // Copy to clipboard
+      navigator.clipboard
+        .writeText(link)
+        .then(() => {
+          const confirmation = document.getElementById("copy-confirmation");
+          if (confirmation) {
+            confirmation.classList.remove("hidden");
+            setTimeout(() => {
+              confirmation.classList.add("hidden");
+            }, 2000);
+          }
+        })
+        .catch((err) => {
+          console.error("Could not copy text: ", err);
         });
     });
+  }
+
+  // Configure share options
+  const shareOptions = shareDialog.querySelectorAll(
+    ".share-option[data-platform]"
+  );
+  shareOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const platform = option.getAttribute("data-platform");
+
+      if (platform !== "copy") {
+        const url = shareDialog.dataset.shareUrl || window.location.href;
+        const title = "Check out this episode of ParaPowerMapping!";
+
+        switch (platform) {
+          case "twitter":
+            window.open(
+              `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                title
+              )}&url=${encodeURIComponent(url)}`,
+              "_blank"
+            );
+            break;
+          case "facebook":
+            window.open(
+              `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                url
+              )}`,
+              "_blank"
+            );
+            break;
+          case "email":
+            window.location.href = `mailto:?subject=${encodeURIComponent(
+              title
+            )}&body=${encodeURIComponent(url)}`;
+            break;
+        }
+      }
+    });
+  });
 }
 
 /**
@@ -545,44 +545,44 @@ function initShareDialog() {
  * Shows/hides and animates the back to top button
  */
 function initBackToTop() {
-    const backToTopButton = document.getElementById("back-to-top");
-    if (!backToTopButton) return;
+  const backToTopButton = document.getElementById("back-to-top");
+  if (!backToTopButton) return;
 
-    const showButton = () => {
-        const scrollPosition = window.scrollY;
-        // Show button after scrolling 800px
-        if (scrollPosition > 800) {
-            backToTopButton.classList.add("visible");
-        } else {
-            backToTopButton.classList.remove("visible");
+  const showButton = () => {
+    const scrollPosition = window.scrollY;
+    // Show button after scrolling 800px
+    if (scrollPosition > 800) {
+      backToTopButton.classList.add("visible");
+    } else {
+      backToTopButton.classList.remove("visible");
+    }
+  };
+
+  // Debounce for performance
+  window.addEventListener("scroll", debounce(showButton, 100));
+
+  // Smooth scroll to top
+  backToTopButton.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    // Use smooth scrolling API if available
+    if ("scrollBehavior" in document.documentElement.style) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } else {
+      // Fallback for browsers that don't support smooth scrolling
+      const scrollToTop = () => {
+        const c = document.documentElement.scrollTop || document.body.scrollTop;
+        if (c > 0) {
+          window.requestAnimationFrame(scrollToTop);
+          window.scrollTo(0, c - c / 8);
         }
-    };
-
-    // Debounce for performance
-    window.addEventListener("scroll", debounce(showButton, 100));
-
-    // Smooth scroll to top
-    backToTopButton.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        // Use smooth scrolling API if available
-        if ("scrollBehavior" in document.documentElement.style) {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-            });
-        } else {
-            // Fallback for browsers that don't support smooth scrolling
-            const scrollToTop = () => {
-                const c = document.documentElement.scrollTop || document.body.scrollTop;
-                if (c > 0) {
-                    window.requestAnimationFrame(scrollToTop);
-                    window.scrollTo(0, c - c / 8);
-                }
-            };
-            scrollToTop();
-        }
-    });
+      };
+      scrollToTop();
+    }
+  });
 }
 
 /**
@@ -590,50 +590,50 @@ function initBackToTop() {
  * Ensures the site is accessible to all users
  */
 function initAccessibility() {
-    // Focus trap for modal dialogs
-    const dialogs = document.querySelectorAll("dialog");
-    dialogs.forEach((dialog) => {
-        dialog.addEventListener("keydown", (e) => {
-            if (e.key === "Tab") {
-                const focusableElements = dialog.querySelectorAll(
-                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-                );
+  // Focus trap for modal dialogs
+  const dialogs = document.querySelectorAll("dialog");
+  dialogs.forEach((dialog) => {
+    dialog.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") {
+        const focusableElements = dialog.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
 
-                const firstElement = focusableElements[0];
-                const lastElement = focusableElements[focusableElements.length - 1];
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
 
-                // If shift+tab is pressed and focus is on first element, move to last
-                if (e.shiftKey && document.activeElement === firstElement) {
-                    e.preventDefault();
-                    lastElement.focus();
-                }
-                // If tab is pressed and focus is on last element, move to first
-                else if (!e.shiftKey && document.activeElement === lastElement) {
-                    e.preventDefault();
-                    firstElement.focus();
-                }
-            }
-        });
-    });
-
-    // Improve focus visibility
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Tab") {
-            document.body.classList.add("keyboard-navigation");
+        // If shift+tab is pressed and focus is on first element, move to last
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
         }
+        // If tab is pressed and focus is on last element, move to first
+        else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
     });
+  });
 
-    document.addEventListener("mousedown", () => {
-        document.body.classList.remove("keyboard-navigation");
+  // Improve focus visibility
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      document.body.classList.add("keyboard-navigation");
+    }
+  });
+
+  document.addEventListener("mousedown", () => {
+    document.body.classList.remove("keyboard-navigation");
+  });
+
+  // Ensure sufficient contrast in text
+  document
+    .querySelectorAll("a, button, h1, h2, h3, h4, h5, h6")
+    .forEach((element) => {
+      element.style.textShadow =
+        element.style.textShadow || "1px 1px 1px rgba(0,0,0,.2)";
     });
-
-    // Ensure sufficient contrast in text
-    document
-        .querySelectorAll("a, button, h1, h2, h3, h4, h5, h6")
-        .forEach((element) => {
-            element.style.textShadow =
-                element.style.textShadow || "1px 1px 1px rgba(0,0,0,.2)";
-        });
 }
 
 /**
@@ -641,12 +641,12 @@ function initAccessibility() {
  * @return {boolean} True if the device is mobile
  */
 function isMobileDevice() {
-    return (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-            navigator.userAgent
-        ) ||
-        (window.matchMedia && window.matchMedia("(max-width: 768px)").matches)
-    );
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    ) ||
+    (window.matchMedia && window.matchMedia("(max-width: 768px)").matches)
+  );
 }
 
 /**
@@ -656,11 +656,11 @@ function isMobileDevice() {
  * @return {Function} - The debounced function
  */
 function debounce(func, wait) {
-    let timeout;
-    return function (...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
 }
 
 /**
@@ -670,14 +670,14 @@ function debounce(func, wait) {
  * @return {Function} - The throttled function
  */
 function throttle(func, limit) {
-    let inThrottle;
-    return function (...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => (inThrottle = false), limit);
-        }
-    };
+  let inThrottle;
+  return function (...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
 }
 
 /**
@@ -686,9 +686,9 @@ function throttle(func, limit) {
  * @return {string} Formatted date string
  */
 function formatDate(dateString) {
-    const date = new Date(dateString);
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return date.toLocaleDateString("en-US", options);
+  const date = new Date(dateString);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString("en-US", options);
 }
 
 /**
@@ -698,6 +698,6 @@ function formatDate(dateString) {
  * @return {string} - The truncated text
  */
 function truncateText(text, maxLength) {
-    if (!text) return "";
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  if (!text) return "";
+  return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 }

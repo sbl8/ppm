@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Refined CSP for clarity -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self';
-                 script-src 'self' https://open.spotify.com 'unsafe-inline';
+                 script-src 'self' https://open.spotify.com *.github.io 'unsafe-inline';
                  style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
                  font-src 'self' https://fonts.gstatic.com;
                  img-src 'self' data: https://parapowermapper.substack.com https://spotify.com https://podcasts.apple.com;
-                 connect-src 'self' https://itunes.apple.com https://api.spotify.com https://parapowermapper.substack.com;
+                 connect-src 'self' https://itunes.apple.com https://api.spotify.com https://parapowermapper.substack.com *.github.io parapowermapping.com;
                  frame-src https://open.spotify.com https://podcasts.apple.com https://embed.podcasts.apple.com;
                  object-src 'none';
                  base-uri 'self';
@@ -22,7 +22,7 @@
     <link rel="shortcut icon" href="images/logo.jpeg" type="image/jpeg">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1A1A1A">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="PPM">
     <link rel="apple-touch-icon" href="images/logo-192.png">
@@ -217,7 +217,8 @@
         // It will fail if you open the HTML file directly using the file:/// protocol.
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                // Use relative path for sw.js
+                navigator.serviceWorker.register('sw.js')
                     .then(registration => {
                         console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     })

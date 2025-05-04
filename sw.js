@@ -19,7 +19,6 @@ const ASSETS_TO_CACHE = [
     '/images/art3.png',
     '/images/art4.png',
     '/images/background6.png',
-    '/images/background2.png',
     '/images/icons/apple.svg',
     '/images/icons/arrow-up.svg',
     '/images/icons/email.svg',

@@ -1,0 +1,71 @@
+/* icons.css */
+/* ParaPowerMapping Icon Library — production-ready and trimmed */
+
+/* Base icon */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  vertical-align: middle;
+}
+
+/* Icon glyphs */
+.icon-apple       { background-image: url("../images/icons/apple.svg"); }
+.icon-spotify     { background-image: url("../images/icons/spotify.svg"); }
+.icon-patreon     { background-image: url("../images/icons/patreon.svg"); }
+.icon-youtube     { background-image: url("../images/icons/youtube.svg"); }
+.icon-substack    { background-image: url("../images/icons/substack.svg"); }
+.icon-rss         { background-image: url("../images/icons/rss.svg"); }
+.icon-email       { background-image: url("../images/icons/email.svg"); }
+.icon-twitter     { background-image: url("../images/icons/twitter.svg"); }
+.icon-instagram   { background-image: url("../images/icons/instagram.svg"); }
+.icon-threads     { background-image: url("../images/icons/threads.svg"); }
+.icon-facebook    { background-image: url("../images/icons/facebook.svg"); }
+.icon-link        { background-image: url("../images/icons/link.svg"); }
+.icon-arrow-up    { background-image: url("../images/icons/arrow-up.svg"); }
+
+
+/* Icon sizes */
+.icon-sm {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-md {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-lg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Light theme styles */
+@media (prefers-color-scheme: light) {
+  .icon {
+    filter: brightness(0); /* Make icons black in light theme */
+  }
+  .icon-light {
+    filter: brightness(0) invert(1) !important; /* Make light icons white */
+  }
+  
+  /* Restore accent colored icons in light theme */
+  .icon-accent {
+    filter: invert(60%) sepia(15%) saturate(1200%) hue-rotate(15deg) brightness(96%) contrast(70%);
+  }
+}
+
+/* Dark theme styles (default) */
+@media (prefers-color-scheme: dark) {
+  .icon {
+    filter: invert(85%) sepia(0%) saturate(0%) hue-rotate(119deg) brightness(95%) contrast(92%);
+  }
+  
+  .icon-accent {
+    filter: invert(60%) sepia(15%) saturate(1200%) hue-rotate(15deg) brightness(96%) contrast(70%);
+  }
+}

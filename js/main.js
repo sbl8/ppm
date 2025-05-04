@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAccessibility();
     initIntersectionAnimations();
     initParallaxEffects();
+    initActiveNavHighlighting(); // Added active nav highlighting
 });
 
 /**
@@ -79,30 +80,108 @@ function initMobileNavigation() {
     const navLinks = menu.querySelectorAll('.nav__link');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (window.innerWidth < 600) {
+            // Update active state immediately on click for responsiveness
+            navLinks.forEach(l => {
+                l.classList.remove('active');
+                l.removeAttribute('aria-current');
+            });
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
+
+            if (window.innerWidth < 769) { // Use 769px breakpoint consistent with CSS
                 menuToggle.setAttribute('aria-expanded', 'false');
                 body.classList.remove('menu-open');
-                menu.style.display = 'none';
+                // Reset mobile menu styles (handled by CSS now)
+                menu.style.display = '';
+                menu.style.position = '';
+                menu.style.top = '';
+                menu.style.left = '';
+                menu.style.width = '';
+                menu.style.backgroundColor = '';
+                menu.style.padding = '';
+                menu.style.flexDirection = '';
+                menu.style.alignItems = '';
+                menu.style.zIndex = '';
+                menu.style.boxShadow = '';
             }
         });
     });
 
     // Handle resize events to fix menu state
     window.addEventListener('resize', debounce(() => {
-        if (window.innerWidth >= 600) {
-            menu.style.display = 'flex';
-            menu.style.position = 'static';
-            menu.style.top = 'auto';
-            menu.style.left = 'auto';
-            menu.style.width = 'auto';
-            menu.style.backgroundColor = 'transparent';
-            menu.style.padding = '0';
-            menu.style.flexDirection = 'row';
-            menu.style.boxShadow = 'none';
+        if (window.innerWidth >= 769) { // Use 769px breakpoint
+            // Reset styles potentially added by JS for mobile
+            menu.style.display = '';
+            menu.style.position = '';
+            menu.style.top = '';
+            menu.style.left = '';
+            menu.style.width = '';
+            menu.style.backgroundColor = '';
+            menu.style.padding = '';
+            menu.style.flexDirection = '';
+            menu.style.boxShadow = '';
+            body.classList.remove('menu-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
         } else if (!body.classList.contains('menu-open')) {
+            // Ensure menu is hidden if not open on mobile
             menu.style.display = 'none';
         }
     }, 150));
+}
+
+/**
+ * Highlight Active Navigation Link based on Scroll Position
+ */
+function initActiveNavHighlighting() {
+    const sections = document.querySelectorAll('main > section[id]');
+    const navLinks = document.querySelectorAll('.nav__link');
+
+    if (!sections.length || !navLinks.length) return;
+
+    const observerOptions = {
+        root: null, // relative to document viewport
+        rootMargin: '-40% 0px -60% 0px', // Trigger when section is roughly centered
+        threshold: 0 // Trigger as soon as any part enters/leaves the margin
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                        link.setAttribute('aria-current', 'page');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // Special case for home link when at the very top
+    const homeObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                link.removeAttribute('aria-current');
+                if (link.getAttribute('href') === '#home') {
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
+                }
+            });
+        }
+    }, { threshold: 0.5, rootMargin: '0px 0px -90% 0px' }); // Observe top 10% of viewport
+
+    const header = document.querySelector('#header');
+    if (header) {
+        homeObserver.observe(header);
+    }
 }
 
 /**

@@ -18,8 +18,6 @@ const ASSETS_TO_CACHE = [
   "images/logo.jpeg",
   "images/art.jpeg",
   "images/art2.jpeg",
-  "images/background.png", // Added: Exists
-  "images/background3.png", // Added: Exists
   "images/background4.png", // Added: Exists
   "images/background6.png",
   // Icons relative to sw.js location

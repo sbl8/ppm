@@ -1,0 +1,92 @@
+{{ define "main" }}
+<main id="main">
+  <section class="section episode-section">
+    <div class="container">
+      <article class="episode-single">
+        <header class="episode-header">
+          <h1 class="episode-title">{{ .Title }}</h1>
+          <div class="episode-meta">
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006" }}</time>
+            {{ if .Params.season }}
+            <span class="episode-season">Season {{ .Params.season }}, Episode {{ .Params.episode }}</span>
+            {{ end }}
+          </div>
+        </header>
+
+        {{ if .Params.spotifyId }}
+        <div class="episode-player">
+          <iframe src="https://open.spotify.com/embed/episode/{{ .Params.spotifyId }}?utm_source=generator" width="100%" height="232" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        </div>
+        {{ end }}
+
+        <div class="episode-content">
+          {{ .Content }}
+        </div>
+
+        <div class="episode-links">
+          <h3>Listen on your favorite platform</h3>
+          <div class="episode-platforms">
+            {{ if .Params.spotifyUrl }}
+            <a href="{{ .Params.spotifyUrl }}" class="platform-button" target="_blank" rel="noopener noreferrer">
+              <span class="icon icon-spotify" aria-hidden="true"></span>
+              <span>Spotify</span>
+            </a>
+            {{ end }}
+
+            {{ if .Params.appleUrl }}
+            <a href="{{ .Params.appleUrl }}" class="platform-button" target="_blank" rel="noopener noreferrer">
+              <span class="icon icon-apple" aria-hidden="true"></span>
+              <span>Apple Podcasts</span>
+            </a>
+            {{ end }}
+
+            {{ if .Params.youtubeUrl }}
+            <a href="{{ .Params.youtubeUrl }}" class="platform-button" target="_blank" rel="noopener noreferrer">
+              <span class="icon icon-youtube" aria-hidden="true"></span>
+              <span>YouTube</span>
+            </a>
+            {{ end }}
+
+            <button id="share-button" class="platform-button">
+              <span class="icon icon-share" aria-hidden="true"></span>
+              <span>Share</span>
+            </button>
+          </div>
+        </div>
+
+        {{ if .Params.tags }}
+        <div class="episode-tags">
+          <h4>Tagged with</h4>
+          <ul class="tags-list">
+            {{ range .Params.tags }}
+            <li><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">{{ . }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+      </article>
+
+      <!-- Episode navigation -->
+      <div class="episode-navigation">
+        {{ with .PrevInSection }}
+        <a href="{{ .Permalink }}" class="episode-nav episode-prev">
+          <span class="nav-label">Previous Episode</span>
+          <span class="nav-title">{{ .Title }}</span>
+        </a>
+        {{ end }}
+
+        <a href="{{ "/episodes/" | relURL }}" class="episode-nav episode-all">
+          <span class="nav-title">All Episodes</span>
+        </a>
+
+        {{ with .NextInSection }}
+        <a href="{{ .Permalink }}" class="episode-nav episode-next">
+          <span class="nav-label">Next Episode</span>
+          <span class="nav-title">{{ .Title }}</span>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+</main>
+{{ end }}

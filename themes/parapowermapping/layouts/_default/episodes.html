@@ -1,0 +1,30 @@
+{{ define "main" }}
+<section class="section episodes-section">
+    <div class="container">
+        <h1 class="page-title">{{ .Title }}</h1>
+        {{ with .Content }}
+        <div class="page-content">{{ . }}</div>{{ end }}
+
+        <!-- Using the dynamic podcast player instead of hardcoded episodes -->
+        {{ partial "podcast-player.html" . }}
+
+        <div class="margin-top-xl text-center">
+            <p>Subscribe to our podcast to receive notifications about new episodes.</p>
+            <div class="podcast-subscription-links">
+                <a href="https://open.spotify.com/show/{{ $.Site.Params.spotify_id }}" class="btn btn--outline-light" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ "images/icons/spotify.svg" | relURL }}" alt="" class="btn-icon" width="20" height="20">
+                    <span>Follow on Spotify</span>
+                </a>
+                <a href="https://podcasts.apple.com/podcast/id{{ $.Site.Params.apple_id }}" class="btn btn--outline-light" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ "images/icons/apple.svg" | relURL }}" alt="" class="btn-icon" width="20" height="20">
+                    <span>Subscribe on Apple</span>
+                </a>
+                <a href="{{ $.Site.Params.rss }}" class="btn btn--outline-light" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ "images/icons/rss.svg" | relURL }}" alt="" class="btn-icon" width="20" height="20">
+                    <span>RSS Feed</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{{ end }}

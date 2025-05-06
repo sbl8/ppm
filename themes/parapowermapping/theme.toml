@@ -1,0 +1,20 @@
+name = 'ParaPowerMapping'
+license = 'MIT'
+licenselink = 'https://github.com/sbl8/ppm/LICENSE'
+description = 'Theme built for the ParaPowerMapping Podcast'
+
+# The home page of the theme, where the source can be found
+homepage = 'https://github.com/sbl8/ppm'
+
+# If you have a running demo of the theme
+demosite = 'https://sbl8.github.io/ppm'
+
+# Taxonomy terms
+tags = ['podcast', 'parapolitics']
+features = ['episodes', 'preview', 'contact']
+
+# If the theme has a single author
+[author]
+  name = 'sbl8'
+  homepage = 'https://github.com/sbl8'
+

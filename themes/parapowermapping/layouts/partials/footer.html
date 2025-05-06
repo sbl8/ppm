@@ -1,0 +1,82 @@
+<div id="contact" class="site-footer" aria-labelledby="connect-title">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="contact-text">
+                <h2 id="connect-title">Connect</h2>
+                <p>Tips, feedback or press inquiries?</p>
+            </div>
+            <div class="footer-social">
+                <a href="mailto:{{ .Site.Params.email }}" aria-label="Email ParaPowerMapping" rel="noopener">
+                    <span class="icon icon-email" aria-hidden="true"></span>
+                </a>
+                <a href="https://twitter.com/{{ .Site.Params.twitter }}" aria-label="Follow on Twitter" target="_blank" rel="noopener noreferrer"><span class="icon icon-twitter" aria-hidden="true"></span></a>
+                <a href="https://instagram.com/{{ .Site.Params.instagramUser }}" aria-label="Follow on Instagram" target="_blank" rel="noopener noreferrer"><span class="icon icon-instagram" aria-hidden="true"></span></a>
+                <a href="https://www.threads.com/@{{ .Site.Params.threadsUser }}" aria-label="Follow on Threads" target="_blank" rel="noopener noreferrer"><span class="icon icon-threads" aria-hidden="true"></span></a>
+            </div>
+            <div class="copyright">
+                <p>&copy; {{ now.Format "2006" }} ParaPowerMapping</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="#header" id="back-to-top" class="back-to-top" aria-label="Back to top"><span class="icon icon-arrow-up" aria-hidden="true"></span></a>
+
+<!-- Share Dialog -->
+<dialog id="share-dialog" class="dialog" aria-labelledby="share-dialog-title">
+    <div class="dialog__header">
+        <h3 id="share-dialog-title" class="dialog__title">
+            Share this episode
+        </h3>
+        <button class="dialog__close" aria-label="Close share dialog">
+            &times;
+        </button>
+    </div>
+    <div class="dialog__body">
+        <div class="share-options">
+            <a href="#" class="share-option" data-platform="twitter">
+                <span class="icon icon-twitter" aria-hidden="true"></span>
+                <span>Twitter</span>
+            </a>
+            <a href="#" class="share-option" data-platform="facebook">
+                <span class="icon icon-facebook" aria-hidden="true"></span>
+                <span>Facebook</span>
+            </a>
+            <a href="#" class="share-option" data-platform="email">
+                <span class="icon icon-email" aria-hidden="true"></span>
+                <span>Email</span>
+            </a>
+            <button id="copy-link" class="share-option" data-platform="copy" data-link="">
+                <span class="icon icon-link" aria-hidden="true"></span>
+                <span>Copy Link</span>
+            </button>
+        </div>
+        <div id="copy-confirmation" class="copy-feedback hidden">
+            Link copied to clipboard!
+        </div>
+    </div>
+</dialog>
+
+{{ $main := resources.Get "js/main.js" | resources.Minify }}
+<script src="{{ $main.RelPermalink }}" defer></script>
+<script>
+    // Register Service Worker
+    // NOTE: Service Worker registration requires the page to be served over HTTPS or localhost.
+    // It will fail if you open the HTML file directly using the file:/// protocol.
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            // Use relative path for sw.js
+            navigator.serviceWorker
+                .register("{{ .Site.BaseURL }}sw.js")
+                .then((registration) => {
+                    console.log(
+                        "ServiceWorker registration successful with scope: ",
+                        registration.scope
+                    );
+                })
+                .catch((err) => {
+                    console.warn("ServiceWorker registration failed: ", err);
+                });
+        });
+    }
+</script>

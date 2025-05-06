@@ -1,0 +1,23 @@
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<div class="site-header" id="header">
+    <div class="container">
+        <nav class="nav" aria-label="Primary navigation">
+            <button class="nav__toggle" aria-expanded="false" aria-controls="main-menu" aria-label="Toggle menu">
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+                <span class="nav__toggle-bar"></span>
+            </button>
+            <ul id="main-menu" class="nav__list">
+                {{ $currentPage := . }}
+                {{ range .Site.Menus.main }}
+                <li>
+                    <a href="{{ .URL }}" class="nav__link" {{ if $currentPage.IsMenuCurrent "main" . }}aria-current="page" {{ end }}>
+                        {{ .Name }}
+                    </a>
+                </li>
+                {{ end }}
+            </ul>
+        </nav>
+    </div>
+</div>

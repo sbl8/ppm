@@ -50,3 +50,4 @@ _site/
 /dist/
 
 /build/
+.hugo_build.lock

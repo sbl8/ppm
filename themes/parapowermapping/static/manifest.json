@@ -1,0 +1,42 @@
+{
+    "name": "ParaPowerMapping Podcast",
+    "short_name": "PPM",
+    "description": "Investigating parapolitics, intelligence operations, and hidden power structures",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1A1A1A",
+    "theme_color": "#1A1A1A",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/images/logo.jpeg",
+            "sizes": "192x192",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "/images/logo.jpeg",
+            "sizes": "512x512",
+            "type": "image/jpeg"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Episodes",
+            "short_name": "Episodes",
+            "description": "Listen to podcast episodes",
+            "url": "/#episodes"
+        },
+        {
+            "name": "About",
+            "short_name": "About",
+            "description": "Learn about the ParaPowerMapping project",
+            "url": "/#about"
+        }
+    ],
+    "categories": [
+        "podcast",
+        "politics",
+        "education",
+        "news"
+    ]
+}

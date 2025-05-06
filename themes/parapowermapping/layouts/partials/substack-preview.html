@@ -1,0 +1,19 @@
+<section id="substack-preview" class="section section--accent substack-section" data-reveal="up">
+    <div class="container">
+        <h2 class="substack-section__title">Latest Article</h2>
+        {{ $posts := site.Data.substack }}
+        {{ if gt (len $posts) 0 }}
+        {{ $latest := index $posts 0 }}
+        <div class="substack-post-embed">
+            <p lang="en">{{ $latest.title | html }}</p>
+            <p class="substack-post-embed__subtitle">{{ $latest.description | safeHTML }}</p>
+            <a data-post-link href="{{ $latest.link }}" class="btn btn--light btn--substack">
+                Read on Substack
+            </a>
+        </div>
+        {{ else }}
+        <p class="substack-placeholder">No Substack posts found.</p>
+        {{ end }}
+    </div>
+</section>
+<script async src="https://substack.com/embedjs/embed.js" charset="utf-8"></script>

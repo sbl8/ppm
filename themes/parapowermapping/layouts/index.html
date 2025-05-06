@@ -1,0 +1,68 @@
+{{ define "main" }}
+<main id="main">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero__overlay"></div>
+        <div class="hero__content">
+            <img src="images/logo.jpeg" alt="ParaPowerMapping Logo" class="hero__logo">
+            <h1 class="hero__title">{{ .Title }}</h1>
+            <p class="hero__subtitle">{{ .Description }}</p>
+            <div class="hero__buttons">
+                <a href="#podcast-player" class="btn btn--primary">
+                    <span class="icon icon-spotify"></span> Listen to the Podcast
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-background"></div>
+        <div class="about-content">
+            <h2>About The Project</h2>
+            <div class="about-text">
+                <p>{{ .Content }}</p>
+                <p>Our podcast and writings aim to make complex power dynamics accessible, helping you understand the often invisible forces that impact policy, economics, and society.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episodes Section -->
+    <section id="episodes" class="section merged-section">
+        <div class="container">
+            <h2>Listen to the Podcast</h2>
+
+            <!-- Podcast Player -->
+            {{ partial "podcast-player.html" . }}
+
+            <div class="text-center margin-top-lg">
+                <p>Follow the show on your favorite platform to never miss an episode.</p>
+            </div>
+        </div>
+        <div class="platforms">
+            <a href="https://open.spotify.com/show/{{ .Site.Params.spotify_id }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify">
+                <span class="icon icon-spotify icon-lg icon-accent" aria-hidden="true"></span><span>Spotify</span>
+            </a>
+            <a href="https://podcasts.apple.com/us/podcast/parapower-mapping/id{{ .Site.Params.apple_id }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Listen on Apple Podcasts">
+                <span class="icon icon-apple icon-lg icon-accent" aria-hidden="true"></span><span>Apple Podcasts</span>
+            </a>
+            <a href="https://www.patreon.com/ParaPowerMapping" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Support on Patreon">
+                <span class="icon icon-patreon icon-lg icon-accent" aria-hidden="true"></span><span>Patreon</span>
+            </a>
+            <a href="https://www.youtube.com/{{ .Site.Params.youtube }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube">
+                <span class="icon icon-youtube icon-lg icon-accent" aria-hidden="true"></span><span>YouTube</span>
+            </a>
+            <a href="https://{{ .Site.Params.substack }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Read on Substack">
+                <span class="icon icon-substack icon-lg icon-accent" aria-hidden="true"></span><span>Substack</span>
+            </a>
+            <a href="{{ .Site.Params.rss }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Subscribe via RSS">
+                <span class="icon icon-rss icon-lg icon-accent" aria-hidden="true"></span><span>RSS</span>
+            </a>
+        </div>
+        </div>
+    </section>
+    <!-- Substack Article Preview Section -->
+    {{ partial "substack-preview.html" . }}
+
+</main>
+{{ end }}

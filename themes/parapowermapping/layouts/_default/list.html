@@ -1,0 +1,40 @@
+{{ define "main" }}
+<main id="main">
+  <section class="section">
+    <div class="container">
+      <header class="section-header">
+        <h1>{{ .Title }}</h1>
+        {{ with .Description }}
+        <p class="lead">{{ . }}</p>
+        {{ end }}
+      </header>
+
+      {{ if and (.IsHome) (eq .Title "Episodes") }}
+      <div class="episodes-list-info">
+        <p>Browse all episodes of ParaPowerMapping podcast.</p>
+      </div>
+      {{ end }}
+
+      <div class="episodes-grid">
+        {{ range .Pages.ByDate.Reverse }}
+        <div class="episode-card active">
+          {{ if .Params.image }}
+          <div class="episode-card__image-container">
+            <img src="{{ .Params.image }}" alt="{{ .Title }}" class="episode-card__image">
+          </div>
+          {{ end }}
+          <div class="episode-card__content">
+            <h2 class="episode-card__title">{{ .Title }}</h2>
+            <p class="episode-card__date">{{ .Date.Format "January 2, 2006" }}</p>
+            <div class="episode-card__description">
+              {{ .Summary | truncate 150 }}
+            </div>
+            <a href="{{ .Permalink }}" class="read-more">Listen to Episode <span class="icon-arrow-right"></span></a>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+</main>
+{{ end }}

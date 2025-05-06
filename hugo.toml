@@ -1,0 +1,59 @@
+baseURL = 'https://parapowermapping.com/'
+languageCode = 'en-us'
+title = 'ParaPowerMapping'
+theme = 'parapowermapping'
+enableRobotsTXT = true
+
+[params]
+  description = "Mapping the hidden power structures in our world"
+  author = "ParaPowerMapping Team"
+  keywords = "podcast, parapolitics, intelligence operations, power structures, hidden networks"
+  copyright = "ParaPowerMapping"
+  logo = "images/logo.jpeg" # Path relative to static/ or assets/
+
+  # Social media and contact
+  email = "info@parapowermapping.com"
+  twitter_user = "KlonnyPin_Gosch" # From old index.html twitter:site
+  instagram_user = "parapower_mapping" # From old index.html footer
+  threads_user = "parapower_mapping" # From old index.html footer
+  
+  # Podcast Platforms & Related
+  podcast_title = "ParaPowerMapping Podcast"
+  spotify_show_id = "6fw1VCpTK9W4K56N1kyR6O" # Corrected Spotify Show ID
+  apple_podcast_id = "1674362158"   # Apple Podcast ID
+  youtube_channel_name = "parapowermapping" # YouTube channel name
+  youtube_playlist_id = "PLEwzUG_PvYT7TtTs7zwaswVZF2QwngJoZ" # Used by podcast-player partial for YouTube tab
+  patreon_user = "ParaPowerMapping"
+  substack_url = "https://parapowermapper.substack.com" # Full Substack URL
+  rss_feed_url = "/episodes/index.xml" # Prefer Hugo's generated RSS feed for episodes
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "About"
+    url = "/#about"
+    weight = 2
+  [[menu.main]]
+    name = "Episodes" # Changed from "Podcast" to match section ID
+    url = "/#episodes"
+    weight = 3
+  [[menu.main]]
+    name = "Connect" # Changed from "Subscribe" to match footer ID "contact"
+    url = "/#contact"
+    weight = 4
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+
+# Ensure episodes section generates an RSS feed
+[outputFormats.RSS]
+  mediatype = "application/rss+xml"
+  baseName = "index" # This will create index.xml in the section folder

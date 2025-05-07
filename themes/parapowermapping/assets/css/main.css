@@ -843,66 +843,6 @@ main {
   color: var(--ppm-accent);
 }
 
-@media (max-width: 768px) {
-  /* 1) Disable the header’s backdrop-filter so fixed children truly fix to viewport */
-  .site-header {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  .nav {
-    justify-content: center;
-  }
-
-  /* 2) Hamburger: always on top of everything */
-  .nav__toggle {
-    display: flex;
-    position: absolute;
-    top: var(--space-sm);
-    left: var(--space-md);
-    z-index: calc(var(--z-header) + 2);
-  }
-
-  /* 3) Full-screen, fixed mobile menu */
-  .nav__list {
-    display: none;
-    position: fixed;
-    top: 0; /* pin to very top of viewport */
-    left: 0;
-    width: 100%;
-    height: 100vh; /* cover entire screen */
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    overflow-y: auto; /* scroll if needed */
-    background-color: rgba(26, 26, 26, 0.95);
-    z-index: calc(var(--z-header) + 1);
-  }
-
-  .nav__link {
-    padding: var(--space-md);
-    display: block;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  /* 4) Toggle it open */
-  body.menu-open .nav__list {
-    display: flex;
-  }
-
-  /* 5) “X” animation */
-  body.menu-open .nav__toggle-bar:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-  }
-  body.menu-open .nav__toggle-bar:nth-child(2) {
-    opacity: 0;
-  }
-  body.menu-open .nav__toggle-bar:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-  }
-}
-
 /* --- Hero Section --- */
 .hero {
   position: relative;
@@ -1751,5 +1691,65 @@ main {
   .substack-post-embed > p[lang],
   .substack-post-embed__subtitle {
     color: var(--ppm-text-primary);
+  }
+}
+
+@media (max-width: 768px) {
+  /* 1) Kill the header’s backdrop filter on mobile so fixed children attach to viewport */
+  .site-header {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .nav {
+    justify-content: center;
+  }
+
+  /* 2) Hamburger: fixed to viewport, on top */
+  .nav__toggle {
+    display: flex !important;
+    position: fixed !important;
+    top: var(--space-sm) !important;
+    left: var(--space-md) !important;
+    z-index: var(--z-modal) !important;
+  }
+
+  /* 3) Full-screen fixed mobile menu */
+  .nav__list {
+    display: none !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-y: auto !important;
+    background-color: rgba(26, 26, 26, 0.95) !important;
+    z-index: calc(var(--z-modal) - 1) !important;
+  }
+
+  .nav__link {
+    padding: var(--space-md) !important;
+    display: block !important;
+    text-align: center !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  }
+
+  /* 4) Toggle it open */
+  body.menu-open .nav__list {
+    display: flex !important;
+  }
+
+  /* 5) “X” animation bars still apply */
+  body.menu-open .nav__toggle-bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg) !important;
+  }
+  body.menu-open .nav__toggle-bar:nth-child(2) {
+    opacity: 0 !important;
+  }
+  body.menu-open .nav__toggle-bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg) !important;
   }
 }

@@ -848,25 +848,29 @@ main {
     justify-content: center;
   }
 
+  /* Hamburger toggle: pinned to top, above the header & menu */
   .nav__toggle {
-    display: flex; /* Show only on mobile */
+    display: flex;
     position: absolute;
+    top: var(--space-sm);
     left: var(--space-md);
+    z-index: calc(var(--z-header) + 2);
   }
 
+  /* Mobile menu: fixed under header, but stacked above it */
   .nav__list {
     display: none;
     position: fixed;
-    top: 60px; /* Align with header height */
+    top: 60px; /* height of your header */
     left: 0;
     width: 100%;
     flex-direction: column;
     background-color: rgba(26, 26, 26, 0.95);
     border-top: 1px solid rgba(169, 139, 79, 0.2);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: var(--z-header);
+    z-index: calc(var(--z-header) + 1);
     padding: 0;
-    transform: translateZ(0); /* Promotes to its own rendering layer */
+    transform: translateZ(0);
   }
 
   .nav__link {
@@ -876,18 +880,18 @@ main {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
+  /* When open, show the menu */
   body.menu-open .nav__list {
     display: flex;
   }
 
+  /* Toggle “X” animation */
   body.menu-open .nav__toggle-bar:nth-child(1) {
     transform: translateY(9px) rotate(45deg);
   }
-
   body.menu-open .nav__toggle-bar:nth-child(2) {
     opacity: 0;
   }
-
   body.menu-open .nav__toggle-bar:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
   }

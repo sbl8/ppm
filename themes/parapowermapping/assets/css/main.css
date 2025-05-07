@@ -922,7 +922,8 @@ main {
 }
 
 /* Glitch-like distortion effects on logo hover and change .hero base background image temporarily to a random gif (image/ghost.gif, ghost2.gif, or ghost3.gif) */
-.hero__logo:hover {
+.hero__logo:hover,
+.hero__logo.glitch-active {
   animation: glitch 0.2s infinite alternate;
 }
 @keyframes glitch {
@@ -939,8 +940,8 @@ main {
     filter: hue-rotate(-30deg);
   }
 }
-/* Darkened overlay for the hero section */
 
+/* Darkened overlay for the hero section */
 .hero__overlay {
   position: absolute;
   top: 0;
@@ -1459,20 +1460,24 @@ main {
 /* Podcast Player Component - Enhanced for accessibility and mobile */
 .podcast-player {
   margin: var(--space-xl) 0;
-  border-radius: var(--radius-lg);
+  border-radius: var(--border-radius-lg); /* Corrected CSS variable */
   overflow: hidden;
-  background-color: var(--color-surface);
-  box-shadow: var(--shadow-sm);
+  background-color: var(
+    --ppm-bg-light
+  ); /* Use theme variable, was --color-surface */
+  box-shadow: var(--shadow-subtle); /* Use theme variable, was --shadow-sm */
 }
 
 .podcast-player__tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem;
-  background-color: var(--color-surface-variant);
+  background-color: var(
+    --ppm-bg-highlight
+  ); /* Use theme variable, was --color-surface-variant */
   padding: 0.5rem 0.5rem 0;
-  border-top-left-radius: var(--radius-lg);
-  border-top-right-radius: var(--radius-lg);
+  border-top-left-radius: var(--border-radius-lg); /* Corrected CSS variable */
+  border-top-right-radius: var(--border-radius-lg); /* Corrected CSS variable */
 }
 
 .podcast-player__tab {
@@ -1481,10 +1486,12 @@ main {
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
   border: none;
-  border-top-left-radius: var(--radius-md);
-  border-top-right-radius: var(--radius-md);
+  border-top-left-radius: var(--border-radius-md); /* Corrected CSS variable */
+  border-top-right-radius: var(--border-radius-md); /* Corrected CSS variable */
   background-color: transparent;
-  color: var(--color-on-surface-muted);
+  color: var(
+    --ppm-text-secondary
+  ); /* Use theme variable, was --color-on-surface-muted */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -1505,13 +1512,22 @@ main {
 }
 
 .podcast-player__tab:hover {
-  color: var(--color-on-surface);
-  background-color: rgba(255, 255, 255, 0.05);
+  color: var(
+    --ppm-text-primary
+  ); /* Use theme variable, was --color-on-surface */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.05
+  ); /* Keep or adjust based on theme */
 }
 
 .podcast-player__tab.active {
   color: var(--ppm-accent);
-  background-color: var(--color-surface);
+  background-color: var(
+    --ppm-bg-light
+  ); /* Use theme variable, was --color-surface */
 }
 
 .podcast-player__tab.active::after {
@@ -1541,13 +1557,13 @@ main {
   width: 100%;
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius-md);
+  border-radius: var(--border-radius-md); /* Corrected CSS variable */
 }
 
 .podcast-player__embed {
   width: 100%;
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: var(--border-radius-md); /* Corrected CSS variable */
   background-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -1556,18 +1572,12 @@ main {
   justify-content: center;
   align-items: center;
   min-height: 300px;
-  background-color: var(--color-surface-variant);
-  border-radius: var(--radius-md);
+  background-color: var(
+    --ppm-bg-highlight
+  ); /* Use theme variable, was --color-surface-variant */
+  border-radius: var(--border-radius-md); /* Corrected CSS variable */
   padding: var(--space-lg);
   text-align: center;
-}
-
-.podcast-subscription-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  justify-content: center;
-  align-items: center;
 }
 
 .podcast-rss-link {
@@ -1580,28 +1590,40 @@ main {
 .podcast-rss-link input {
   flex: 1;
   padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--ppm-text-secondary); /* Use theme variable, was --color-border */
   border-right: none;
-  border-top-left-radius: var(--radius-md);
-  border-bottom-left-radius: var(--radius-md);
-  background-color: var(--color-surface-variant);
-  color: var(--color-on-surface);
-  font-size: var(--text-sm);
+  border-top-left-radius: var(--border-radius-md); /* Corrected CSS variable */
+  border-bottom-left-radius: var(
+    --border-radius-md
+  ); /* Corrected CSS variable */
+  background-color: var(
+    --ppm-bg-highlight
+  ); /* Use theme variable, was --color-surface-variant */
+  color: var(
+    --ppm-text-primary
+  ); /* Use theme variable, was --color-on-surface */
+  font-size: var(
+    --text-sm
+  ); /* Assuming --text-sm is defined, else use explicit value e.g. 0.9rem */
 }
 
 .btn-copy {
   padding: var(--space-sm) var(--space-md);
   background-color: var(--ppm-accent);
-  color: var(--color-on-primary);
+  color: var(--ppm-bg-primary); /* Use theme variable, was --color-on-primary */
   border: none;
-  border-top-right-radius: var(--radius-md);
-  border-bottom-right-radius: var(--radius-md);
+  border-top-right-radius: var(--border-radius-md); /* Corrected CSS variable */
+  border-bottom-right-radius: var(
+    --border-radius-md
+  ); /* Corrected CSS variable */
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .btn-copy:hover {
-  background-color: var(--ppm-accent-dark);
+  background-color: var(
+    --ppm-accent-dark
+  ); /* Assuming --ppm-accent-dark is defined */
 }
 
 /* Media queries for responsive design */
@@ -1616,7 +1638,7 @@ main {
   }
 
   .podcast-player__embed {
-    height: 400px;
+    height: 455px; /* Increased height for mobile */
   }
 }
 
@@ -1633,18 +1655,11 @@ main {
   }
 
   .podcast-player__embed {
-    height: 300px;
+    height: 455px; /* Increased height for small mobile, ensuring content fits */
   }
 
   .podcast-subscription-links {
     flex-direction: column;
-  }
-}
-
-/* Medium-sized screens */
-@media (min-width: 551px) and (max-width: 768px) {
-  .podcast-player__embed {
-    height: 400px;
   }
 }
 

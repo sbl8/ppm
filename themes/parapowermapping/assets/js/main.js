@@ -44,24 +44,10 @@ function initMobileNavigation() {
     menuToggle.setAttribute("aria-expanded", !isExpanded);
     body.classList.toggle("menu-open");
 
-    // If on mobile, display the menu properly
-    if (window.innerWidth < 600) {
-      menu.style.display = isExpanded ? "none" : "flex";
-      menu.style.position = isExpanded ? "static" : "fixed";
-      menu.style.top = isExpanded ? "auto" : "4rem";
-      menu.style.left = isExpanded ? "auto" : "0";
-      menu.style.width = isExpanded ? "auto" : "100%";
-      menu.style.backgroundColor = isExpanded
-        ? "transparent"
-        : "rgba(26, 26, 26, 0.95)";
-      menu.style.padding = isExpanded ? "0" : "2rem";
-      menu.style.flexDirection = isExpanded ? "row" : "column";
-      menu.style.alignItems = isExpanded ? "center" : "flex-start";
-      menu.style.zIndex = isExpanded ? "auto" : "var(--z-header)";
-      menu.style.boxShadow = isExpanded
-        ? "none"
-        : "0 5px 15px rgba(0, 0, 0, 0.3)";
-    }
+    // CSS now handles the display and styling of the mobile menu
+    // when body.menu-open is active, so direct style manipulation here is removed.
+    // The breakpoint consistency (e.g., 768px vs 600px) is now less critical here,
+    // as CSS media queries manage the responsive styling of the menu.
   });
 
   // Close menu when clicking nav links
@@ -80,18 +66,6 @@ function initMobileNavigation() {
         // Use 769px breakpoint consistent with CSS
         menuToggle.setAttribute("aria-expanded", "false");
         body.classList.remove("menu-open");
-        // Reset mobile menu styles (handled by CSS now)
-        menu.style.display = "";
-        menu.style.position = "";
-        menu.style.top = "";
-        menu.style.left = "";
-        menu.style.width = "";
-        menu.style.backgroundColor = "";
-        menu.style.padding = "";
-        menu.style.flexDirection = "";
-        menu.style.alignItems = "";
-        menu.style.zIndex = "";
-        menu.style.boxShadow = "";
       }
     });
   });
@@ -102,21 +76,8 @@ function initMobileNavigation() {
     debounce(() => {
       if (window.innerWidth >= 769) {
         // Use 769px breakpoint
-        // Reset styles potentially added by JS for mobile
-        menu.style.display = "";
-        menu.style.position = "";
-        menu.style.top = "";
-        menu.style.left = "";
-        menu.style.width = "";
-        menu.style.backgroundColor = "";
-        menu.style.padding = "";
-        menu.style.flexDirection = "";
-        menu.style.boxShadow = "";
         body.classList.remove("menu-open");
         menuToggle.setAttribute("aria-expanded", "false");
-      } else if (!body.classList.contains("menu-open")) {
-        // Ensure menu is hidden if not open on mobile
-        menu.style.display = "none";
       }
     }, 150)
   );
@@ -698,18 +659,33 @@ function initHeroLogoHoverEffect() {
     return;
   }
 
-  // Path relative to the domain root, assuming 'images' and 'ghost.gif' are at the root of the public folder
-  const originalBackgroundImage = 'url("/images/background6.png")';
-  const gifs = ["/ghost.gif", "/ghost2.gif", "/ghost3.gif"];
+  const originalBackgroundImage = 'url("/images/background6.png")'; // Assuming this is the correct path as per CSS
+  const gifs = ["/ghost.gif", "/ghost2.gif", "/ghost3.gif"].map(
+    (gif) => `url("${gif}")`
+  ); // Prepend url() and ensure correct paths
 
-  heroLogo.addEventListener("mouseenter", () => {
-    const randomGifUrl = gifs[Math.floor(Math.random() * gifs.length)];
-    heroSection.style.backgroundImage = `url('${randomGifUrl}')`;
-    heroSection.style.backgroundSize = "cover";
-    heroSection.style.backgroundPosition = "center center";
-  });
+  if (isMobileDevice()) {
+    let logoEffectActive = false;
+    heroLogo.addEventListener("click", () => {
+      if (!logoEffectActive) {
+        const randomGifUrl = gifs[Math.floor(Math.random() * gifs.length)];
+        heroSection.style.backgroundImage = randomGifUrl;
+        heroLogo.classList.add("glitch-active");
+        logoEffectActive = true;
+      } else {
+        heroSection.style.backgroundImage = originalBackgroundImage;
+        heroLogo.classList.remove("glitch-active");
+        logoEffectActive = false;
+      }
+    });
+  } else {
+    heroLogo.addEventListener("mouseenter", () => {
+      const randomGifUrl = gifs[Math.floor(Math.random() * gifs.length)];
+      heroSection.style.backgroundImage = randomGifUrl;
+    });
 
-  heroLogo.addEventListener("mouseleave", () => {
-    heroSection.style.backgroundImage = originalBackgroundImage;
-  });
+    heroLogo.addEventListener("mouseleave", () => {
+      heroSection.style.backgroundImage = originalBackgroundImage;
+    });
+  }
 }

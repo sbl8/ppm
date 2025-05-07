@@ -866,6 +866,7 @@ main {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: var(--z-header);
     padding: 0;
+    transform: translateZ(0); /* Promotes to its own rendering layer */
   }
 
   .nav__link {

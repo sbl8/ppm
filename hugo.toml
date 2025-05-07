@@ -13,7 +13,7 @@ enableRobotsTXT = true
 
   # Social media and contact
   email = "info@parapowermapping.com"
-  twitter_user = "KlonnyPin_Gosch" # From old index.html twitter:site
+  twitter_user = "ParaPowerMapper" # From old index.html twitter:site
   instagram_user = "parapower_mapping" # From old index.html footer
   threads_user = "parapower_mapping" # From old index.html footer
   

@@ -1740,6 +1740,12 @@ main {
   /* 4) Toggle it open */
   body.menu-open .nav__list {
     display: flex !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
+    transition: opacity var(--transition-fast) !important;
+    pointer-events: auto !important;
+    z-index: calc(var(--z-modal) - 1) !important;
   }
 
   /* 5) “X” animation bars still apply */

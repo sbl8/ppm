@@ -30,6 +30,10 @@ const STATIC_ASSETS = [
   "/images/icons/link.svg",
   "/images/icons/arrow-up.svg",
   "/images/icons/share.svg",
+  "/images/ghost.gif",
+  "/images/ghost2.gif",
+  "/images/ghost3.gif",
+  "/images/substack.jpg",
 ];
 
 // Install Service Worker and cache static assets

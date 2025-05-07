@@ -20,7 +20,7 @@ enableRobotsTXT = true
   # Podcast Platforms & Related
   podcast_title = "ParaPowerMapping Podcast"
   spotify_show_id = "6fw1VCpTK9W4K56N1kyR6O" # Corrected Spotify Show ID
-  apple_podcast_id = "1674362158"   # Apple Podcast ID
+  apple_podcast_id = "id1674362158"   # Apple Podcast ID
   youtube_channel_name = "parapowermapping" # YouTube channel name
   youtube_playlist_id = "PLEwzUG_PvYT7TtTs7zwaswVZF2QwngJoZ" # Used by podcast-player partial for YouTube tab
   patreon_user = "ParaPowerMapping"

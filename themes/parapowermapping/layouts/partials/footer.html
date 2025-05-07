@@ -57,17 +57,21 @@
     </div>
 </dialog>
 
-{{ $main := resources.Get "js/main.js" | resources.Minify }}
-<script src="{{ $main.RelPermalink }}" defer></script>
+{{ $mainJs := resources.Get "js/main.js" | resources.Minify }}
+<script src="{{ $mainJs.RelPermalink }}" defer></script>
+
+{{ $podcastPlayerJs := resources.Get "js/podcastPlayer.js" | resources.Minify }}
+<script src="{{ $podcastPlayerJs.RelPermalink }}" defer></script>
+
 <script>
     // Register Service Worker
     // NOTE: Service Worker registration requires the page to be served over HTTPS or localhost.
     // It will fail if you open the HTML file directly using the file:/// protocol.
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-            // Use relative path for sw.js
+            // Use absolute URL for sw.js
             navigator.serviceWorker
-                .register("{{ .Site.BaseURL }}sw.js")
+                .register('{{ "sw.js" | absURL }}')
                 .then((registration) => {
                     console.log(
                         "ServiceWorker registration successful with scope: ",

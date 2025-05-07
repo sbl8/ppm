@@ -27,23 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
- * Configuration object for podcast services
- * This provides a central place to manage all service-related identifiers
- */
-const podcastConfig = {
-  spotify: {
-    showId: "ParaPowerMapping", // Update with actual Spotify show ID
-    baseUrl: "https://open.spotify.com",
-    embedBaseUrl: "https://open.spotify.com/embed-podcast/show",
-  },
-  apple: {
-    podcastId: "1674362158",
-    embedBaseUrl: "https://embed.podcasts.apple.com/us/podcast",
-  },
-  defaultProvider: "apple", // Changed from 'spotify' to 'apple'
-};
-
-/**
  * Mobile Navigation Functionality
  * Toggles mobile menu and handles navigation events
  */

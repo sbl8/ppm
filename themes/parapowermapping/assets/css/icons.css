@@ -14,43 +14,43 @@
 
 /* Icon glyphs */
 .icon-apple {
-  background-image: url("../images/icons/apple.svg");
+  background-image: url("/images/icons/apple.svg");
 }
 .icon-spotify {
-  background-image: url("../images/icons/spotify.svg");
+  background-image: url("/images/icons/spotify.svg");
 }
 .icon-patreon {
-  background-image: url("../images/icons/patreon.svg");
+  background-image: url("/images/icons/patreon.svg");
 }
 .icon-youtube {
-  background-image: url("../images/icons/youtube.svg");
+  background-image: url("/images/icons/youtube.svg");
 }
 .icon-substack {
-  background-image: url("../images/icons/substack.svg");
+  background-image: url("/images/icons/substack.svg");
 }
 .icon-rss {
-  background-image: url("../images/icons/rss.svg");
+  background-image: url("/images/icons/rss.svg");
 }
 .icon-email {
-  background-image: url("../images/icons/email.svg");
+  background-image: url("/images/icons/email.svg");
 }
 .icon-twitter {
-  background-image: url("../images/icons/twitter.svg");
+  background-image: url("/images/icons/twitter.svg");
 }
 .icon-instagram {
-  background-image: url("../images/icons/instagram.svg");
+  background-image: url("/images/icons/instagram.svg");
 }
 .icon-threads {
-  background-image: url("../images/icons/threads.svg");
+  background-image: url("/images/icons/threads.svg");
 }
 .icon-facebook {
-  background-image: url("../images/icons/facebook.svg");
+  background-image: url("/images/icons/facebook.svg");
 }
 .icon-link {
-  background-image: url("../images/icons/link.svg");
+  background-image: url("/images/icons/link.svg");
 }
 .icon-arrow-up {
-  background-image: url("../images/icons/arrow-up.svg");
+  background-image: url("/images/icons/arrow-up.svg");
 }
 
 /* Icon sizes */

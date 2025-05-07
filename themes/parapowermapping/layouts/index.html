@@ -23,10 +23,18 @@
             <div class="about-text">
                 <p>{{ .Content }}</p>
                 <p>Our podcast and writings aim to make complex power dynamics accessible, helping you understand the often invisible forces that impact policy, economics, and society.</p>
-            </div>
-        </div>
-    </section>
 
+                <!--- Patreon button -->
+                <div class="text-center margin-top-lg">
+                    <p>Support our work on Patreon and get exclusive content.</p>
+                    <a href="https://www.patreon.com/ParaPowerMapping" class="btn btn--secondary" target="_blank" rel="noopener noreferrer">
+                        <span class="icon icon-patreon"></span> Become a Patron
+                    </a>
+                </div>
+            </div>
+    </section>
+    <!-- Substack Article Preview Section -->
+    {{ partial "substack-preview.html" . }}
     <!-- Episodes Section -->
     <section id="episodes" class="section merged-section">
         <div class="container">
@@ -40,29 +48,30 @@
             </div>
         </div>
         <div class="platforms">
-            <a href="https://open.spotify.com/show/{{ .Site.Params.spotify_id }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify">
+            <a href="https://open.spotify.com/show/{{ .Site.Params.spotify_show_id }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify">
                 <span class="icon icon-spotify icon-lg icon-accent" aria-hidden="true"></span><span>Spotify</span>
             </a>
-            <a href="https://podcasts.apple.com/us/podcast/parapower-mapping/id{{ .Site.Params.apple_id }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Listen on Apple Podcasts">
+            <a href='https://podcasts.apple.com/us/podcast/parapower-mapping/{{ .Site.Params.apple_podcast_id }}' class="platform" target="_blank" rel="noopener noreferrer" aria-label="Listen on Apple Podcasts">
                 <span class="icon icon-apple icon-lg icon-accent" aria-hidden="true"></span><span>Apple Podcasts</span>
             </a>
             <a href="https://www.patreon.com/ParaPowerMapping" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Support on Patreon">
                 <span class="icon icon-patreon icon-lg icon-accent" aria-hidden="true"></span><span>Patreon</span>
             </a>
-            <a href="https://www.youtube.com/{{ .Site.Params.youtube }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube">
+
+            <!-- Comment out until YouTube is set up -->
+            <!-- <a href="https://www.youtube.com/{{ .Site.Params.youtube }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube">
                 <span class="icon icon-youtube icon-lg icon-accent" aria-hidden="true"></span><span>YouTube</span>
-            </a>
-            <a href="https://{{ .Site.Params.substack }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Read on Substack">
+            </a> -->
+            <a href="{{ .Site.Params.substack_url }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Read on Substack">
                 <span class="icon icon-substack icon-lg icon-accent" aria-hidden="true"></span><span>Substack</span>
             </a>
-            <a href="{{ .Site.Params.rss }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Subscribe via RSS">
+
+            <!-- Comment out until RSS is set up -->
+            <!-- <a href="{{ .Site.Params.rss }}" class="platform" target="_blank" rel="noopener noreferrer" aria-label="Subscribe via RSS">
                 <span class="icon icon-rss icon-lg icon-accent" aria-hidden="true"></span><span>RSS</span>
-            </a>
+            </a> -->
         </div>
         </div>
     </section>
-    <!-- Substack Article Preview Section -->
-    {{ partial "substack-preview.html" . }}
-
 </main>
 {{ end }}

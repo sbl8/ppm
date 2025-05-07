@@ -1,3 +1,7 @@
+const podcastConfig = {
+  defaultProvider: "apple", // You can change this to "spotify" or make it dynamic if needed
+};
+
 /**
  * Podcast Player
  * Handles tab functionality and copy capabilities for the podcast player

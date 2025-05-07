@@ -8,22 +8,3 @@
 {{ $podcastPlayer := resources.Get "js/podcastPlayer.js" | resources.Minify | resources.Fingerprint "sha256" }}
 <script src="{{ $podcastPlayer.RelPermalink }}"></script>
 {{ end }}
-
-<script>
-  // Register Service Worker
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker
-        .register("{{ .Site.BaseURL }}sw.js")
-        .then((registration) => {
-          console.log(
-            "ServiceWorker registration successful with scope: ",
-            registration.scope
-          );
-        })
-        .catch((err) => {
-          console.log("ServiceWorker registration failed: ", err);
-        });
-    });
-  }
-</script>

@@ -40,14 +40,20 @@ function initMobileNavigation() {
   // Toggle menu visibility
   menuToggle.addEventListener("click", () => {
     const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+    body.classList.toggle("menu-open", !isExpanded);
+    menuToggle.setAttribute("aria-expanded", String(isExpanded));
+  });
 
-    menuToggle.setAttribute("aria-expanded", !isExpanded);
-    body.classList.toggle("menu-open");
-
-    // CSS now handles the display and styling of the mobile menu
-    // when body.menu-open is active, so direct style manipulation here is removed.
-    // The breakpoint consistency (e.g., 768px vs 600px) is now less critical here,
-    // as CSS media queries manage the responsive styling of the menu.
+  // Close menu when clicking outside
+  document.addEventListener("click", (event) => {
+    if (
+      !menu.contains(event.target) &&
+      !menuToggle.contains(event.target) &&
+      body.classList.contains("menu-open")
+    ) {
+      menuToggle.setAttribute("aria-expanded", "false");
+      body.classList.toggle("menu-open");
+    }
   });
 
   // Close menu when clicking nav links
@@ -66,6 +72,8 @@ function initMobileNavigation() {
         // Use 769px breakpoint consistent with CSS
         menuToggle.setAttribute("aria-expanded", "false");
         body.classList.remove("menu-open");
+
+        // Reset mobile menu styles (handled by CSS now)
       }
     });
   });
@@ -75,9 +83,12 @@ function initMobileNavigation() {
     "resize",
     debounce(() => {
       if (window.innerWidth >= 769) {
-        // Use 769px breakpoint
-        body.classList.remove("menu-open");
+        // Reset styles potentially added by JS for mobile
         menuToggle.setAttribute("aria-expanded", "false");
+      } else if (!body.classList.contains("menu-open")) {
+        // Ensure menu is hidden if not open on mobile
+
+        menu.style.display = "none";
       }
     }, 150)
   );

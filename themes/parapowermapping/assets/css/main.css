@@ -805,6 +805,18 @@ main {
   transition: var(--transition-fast);
 }
 
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
 .nav__list {
   display: flex;
   list-style: none;
@@ -841,6 +853,55 @@ main {
 
 .nav__link[aria-current="page"] {
   color: var(--ppm-accent);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    justify-content: center;
+  }
+
+  .nav__toggle {
+    display: flex; /* Show only on mobile */
+    position: absolute;
+    left: var(--space-md);
+  }
+
+  .nav__list {
+    display: none;
+    position: fixed;
+    top: 60px; /* Align with header height */
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: rgba(26, 26, 26, 0.95);
+    border-top: 1px solid rgba(169, 139, 79, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: var(--z-header);
+    padding: 0;
+  }
+
+  .nav__link {
+    padding: var(--space-md);
+    display: block;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  body.menu-open .nav__list {
+    display: flex;
+  }
+
+  body.menu-open .nav__toggle-bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+
+  body.menu-open .nav__toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  body.menu-open .nav__toggle-bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
 }
 
 /* --- Hero Section --- */
@@ -1691,71 +1752,5 @@ main {
   .substack-post-embed > p[lang],
   .substack-post-embed__subtitle {
     color: var(--ppm-text-primary);
-  }
-}
-
-@media (max-width: 768px) {
-  /* 1) Kill the header’s backdrop filter on mobile so fixed children attach to viewport */
-  .site-header {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  .nav {
-    justify-content: center;
-  }
-
-  /* 2) Hamburger: fixed to viewport, on top */
-  .nav__toggle {
-    display: flex !important;
-    position: fixed !important;
-    top: var(--space-sm) !important;
-    left: var(--space-md) !important;
-    z-index: var(--z-modal) !important;
-  }
-
-  /* 3) Full-screen fixed mobile menu */
-  .nav__list {
-    display: none !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100vh !important;
-    flex-direction: column !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow-y: auto !important;
-    background-color: rgba(26, 26, 26, 0.95) !important;
-    z-index: calc(var(--z-modal) - 1) !important;
-  }
-
-  .nav__link {
-    padding: var(--space-md) !important;
-    display: block !important;
-    text-align: center !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-  }
-
-  /* 4) Toggle it open */
-  body.menu-open .nav__list {
-    display: flex !important;
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    visibility: visible !important;
-    transition: opacity var(--transition-fast) !important;
-    pointer-events: auto !important;
-    z-index: calc(var(--z-modal) - 1) !important;
-  }
-
-  /* 5) “X” animation bars still apply */
-  body.menu-open .nav__toggle-bar:nth-child(1) {
-    transform: translateY(9px) rotate(45deg) !important;
-  }
-  body.menu-open .nav__toggle-bar:nth-child(2) {
-    opacity: 0 !important;
-  }
-  body.menu-open .nav__toggle-bar:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg) !important;
   }
 }

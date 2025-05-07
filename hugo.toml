@@ -52,8 +52,3 @@ enableRobotsTXT = true
   home = ["HTML", "RSS"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
-
-# Ensure episodes section generates an RSS feed
-[outputFormats.RSS]
-  mediatype = "application/rss+xml"
-  baseName = "index" # This will create index.xml in the section folder
